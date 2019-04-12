@@ -16,7 +16,7 @@ public struct ResourceIdentifier: Equatable {
 	var type: ResourceType
 	
 	/// The resource ID.
-	var id: String
+	public var id: String
 
 	/// Constructs a new ResourceIdentifier instance with given `type` and `id`.
 	init(type: ResourceType, id: String) {

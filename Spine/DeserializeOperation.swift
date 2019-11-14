@@ -338,15 +338,15 @@ class DeserializeOperation: Operation {
 		for resource in resourcePool {
 			for case let field as ToManyRelationship in resource.fields {
 				
-				guard let linkedResourceCollection = resource.value(forField: field.name) as? LinkedResourceCollection else {
-					Spine.logInfo(.serializing, "Cannot resolve relationship '\(field.name)' of \(resource.resourceType):\(resource.id!) because the JSON did not include the relationship.")
-					continue
-				}
-				
-				guard let linkage = linkedResourceCollection.linkage else {
-					Spine.logInfo(.serializing, "Cannot resolve relationship '\(field.name)' of \(resource.resourceType):\(resource.id!) because the JSON did not include linkage.")
-					continue
-				}
+                guard let linkedResourceCollection = resource.value(forField: field.name) as? LinkedResourceCollection else {
+                    Spine.logInfo(.serializing, "Cannot resolve relationship '\(String(describing: field.name))' of \(resource.resourceType):\(resource.id!) because the JSON did not include the relationship.")
+                    continue
+                }
+                            
+                guard let linkage = linkedResourceCollection.linkage else {
+                    Spine.logInfo(.serializing, "Cannot resolve relationship '\(String(describing: field.name))' of \(resource.resourceType):\(resource.id!) because the JSON did not include linkage.")
+                    continue
+                }
 					
 				let targetResources = linkage.flatMap { (link: ResourceIdentifier) in
 					return resourcePool.filter { $0.resourceType == link.type && $0.id == link.id }
